@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>METSIK – Eesti naised läbi aegade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2ea;
+      padding: 20px;
+    }
+    .app {
+      max-width: 750px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      margin: auto;
+    }
+    h1, h2 { text-align: center; }
+    .metsik {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    .speech {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 10px;
+      min-height: 140px;
+      margin-bottom: 15px;
+    }
+    button {
+      margin: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <h1>METSIK räägib Eesti naistest</h1>
+
+  <div class="metsik">🌾🧸 METSIK</div>
+
+  <div class="speech" id="text">
+    Tere! Mina olen METSIK. Vajuta nupule ja kuula lugusid Eesti naistest läbi aegade.
+  </div>
+
+  <h2>Eesti naised eri ajastutel</h2>
+
+  <button onclick="speakStory('esiajad')">Esiaegne naine Eesti alal</button>
+  <button onclick="speakStory('talunaine')">Talunaine</button>
+  <button onclick="speakStory('opetaja')">Õpetaja ja hariduse kandja</button>
+  <button onclick="speakStory('kultuur')">Kultuuritegelane</button>
+  <button onclick="speakStory('tana')">Eesti naised tänapäeval</button>
+
+  <h2>Tundmatud Eesti naised</h2>
+  <button onclick="speakStory('tundmatud')">Naised, keda ajalugu ei mäleta</button>
+</div>
+
+<script>
+  function speakStory(key) {
+    const textBox = document.getElementById('text');
+    let text = '';
+
+    if (key === 'esiajad') {
+      text = 'Juba esiajal Eesti alal kandsid naised teadmisi toidu, ravimtaimede ja laste kasvatamise kohta. Ilma nendeta ei oleks kogukond püsinud.';
+    }
+
+    if (key === 'talunaine') {
+      text = 'Eesti talunaine töötas põllul, hoolitses loomade ja pere eest ning hoidis kodu. Tema töö oli raske, kuid kandis edasi keelt ja kombeid.';
+    }
+
+    if (key === 'opetaja') {
+      text = '19. ja 20. sajandil olid paljud Eesti naised õpetajad. Nemad aitasid hoida eesti keelt ja haridust ka rasketel aegadel.';
+    }
+
+    if (key === 'kultuur') {
+      text = 'Eesti kultuuris on naised olnud kirjanikud, lauljad ja loojad. Nad on hoidnud rahvuslikku identiteeti ja eneseusku.';
+    }
+
+    if (key === 'tana') {
+      text = 'Tänapäeva Eesti naised on teadlased, ettevõtjad, emad ja juhid. METSIK ütleb: võimalused on avaramad, aga iga lugu on endiselt oluline.';
+    }
+
+    if (key === 'tundmatud') {
+      text = 'Enamik Eesti naisi ajaloos jäi nimeta. Nad olid vanaemad, töötegijad ja elutarkuse kandjad. METSIK tuletab meelde: ka nemad on osa ajaloost.';
+    }
+
+    textBox.innerHTML = text;
+    speakOutLoud(text);
+  }
+
+  function speakOutLoud(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'et-EE';
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+  }
+</script>
+
+</body>
+</html>
